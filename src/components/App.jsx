@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./Header";
 import ToyForm from "./ToyForm";
@@ -6,7 +6,8 @@ import ToyContainer from "./ToyContainer";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [toys,setToys]=useState([])
+  const [toys, setToys] = useState([]);
+  const [deleteToys, setDeleteToys] = useState([]);
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -31,14 +32,20 @@ function App() {
     setToys((newsettoy) => [...newsettoy, toy])
   }
 
+  function onDeleteToy(id) {
+    console.log(id);
+    
+    setToys((deletedtoy) => deletedtoy.filter((e) => e.id !== id));
+  }
+
   return (
     <>
       <Header />
-      {showForm ? <ToyForm acceptnewtoy={acceptnewtoy}/> : null}
+      {showForm ? <ToyForm acceptnewtoy={acceptnewtoy} /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys}/>
+      <ToyContainer toys={toys} ontoydelete={onDeleteToy} />
     </>
   );
 }

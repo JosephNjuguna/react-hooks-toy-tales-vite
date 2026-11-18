@@ -9,6 +9,7 @@ function ToyForm({acceptnewtoy}) {
     const newToy = {
       name,
       image,
+      likes:0
     };
 
     fetch('http://localhost:3001/toys', {
