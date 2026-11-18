@@ -7,7 +7,6 @@ import ToyContainer from "./ToyContainer";
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [toys, setToys] = useState([]);
-  const [deleteToys, setDeleteToys] = useState([]);
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -34,8 +33,17 @@ function App() {
 
   function onDeleteToy(id) {
     console.log(id);
-    
     setToys((deletedtoy) => deletedtoy.filter((e) => e.id !== id));
+  }
+
+  function onLike(updatedToy) {
+    console.log(updatedToy);
+    
+    setToys((prevlikes) =>
+      prevlikes.map((toy) =>
+        toy.id === updatedToy.id ? updatedToy : toy
+      )
+    );
   }
 
   return (
@@ -45,7 +53,7 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} ontoydelete={onDeleteToy} />
+      <ToyContainer toys={toys} ontoydelete={onDeleteToy} onLike={onLike} />
     </>
   );
 }
